@@ -21,5 +21,3 @@ function sortByHeight(arr) {
 module.exports = {
     sortByHeight,
 };
-
-// console.log(sortByHeight([-1, 150, 190, 170, -1, -1, 160, 180]));

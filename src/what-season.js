@@ -12,45 +12,50 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function getSeason(date) {
-  if (!date) {
-    return 'Unable to determine the time of year!';
-  }
+    if (!date) {
+        return 'Unable to determine the time of year!';
+    }
 
-  if (typeof date !== 'object' || typeof date === 'function' || Array.isArray(date)) {
-    throw new Error('Invalid date!');
-  }
+    if (
+        typeof date !== 'object' ||
+        typeof date === 'function' ||
+        date.constructor !== Date ||
+        Object.getOwnPropertyNames(date).length !== 0
+    ) {
+        throw new Error('Invalid date!');
+    }
 
-  const ms = date.getTime();
+    const ms = date.getTime();
 
-  if (Number.isNaN(ms)) {
-    throw new Error('Invalid date!');
-  }
+    if (Number.isNaN(ms)) {
+        throw new Error('Invalid date!');
+    }
 
-  const d = new Date(ms);
+    const d = new Date(ms);
 
-  switch (d.getMonth()) {
-    case 0:
-    case 1:
-      return 'winter';
-    case 2:
-    case 3:
-    case 4:
-      return 'spring';
-    case 5:
-    case 6:
-    case 7:
-      return 'summer';
-    case 8:
-    case 9:
-    case 10:
-      return 'fall';
-    case 11:
-      return 'winter';
-  }
+    switch (d.getMonth()) {
+        case 0:
+        case 1:
+            return 'winter';
+        case 2:
+        case 3:
+        case 4:
+            return 'spring';
+        case 5:
+        case 6:
+        case 7:
+            return 'summer';
+        case 8:
+        case 9:
+        case 10:
+            return 'fall';
+        case 11:
+            return 'winter';
+    }
 
-  return;
+    return;
 }
 
 module.exports = {
-  getSeason,
+    getSeason,
 };
